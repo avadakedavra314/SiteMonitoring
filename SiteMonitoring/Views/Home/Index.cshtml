@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SiteMonitoring.Models.Site>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <hr style="margin-bottom:30px;" />
+    <table class="table">
+        <tr>
+            <th>Сайт</th>
+            <th>Статус</th>
+        </tr>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>

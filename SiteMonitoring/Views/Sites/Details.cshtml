@@ -1,0 +1,27 @@
+﻿@model SiteMonitoring.Models.Site
+@{
+    ViewBag.Title = "Подробная информация";
+}
+
+<ol class="breadcrumb">
+    <li><a asp-action="Index" asp-controller="Home">Главная</a></li>
+    <li><a asp-action="Index" asp-controller="Sites">Сайты</a></li>
+    <li class="active">@ViewBag.Title</li>
+</ol>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">@ViewBag.Title</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Название</th>
+                    <td>@Model.Url</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <a asp-action="Edit" class="btn btn-primary btn-block" asp-route-id="@Model.Id">Изменить</a>
+    </div>
+    <a asp-action="Index" asp-controller="Sites" class="btn btn-default btn-block" role="button">Назад</a>
+</div>

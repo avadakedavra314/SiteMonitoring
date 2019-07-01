@@ -1,0 +1,24 @@
+﻿@model SiteMonitoring.Models.Site
+@{
+    ViewBag.Title = "Удаление сайта";
+}
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">@ViewBag.Title</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Название</th>
+                    <td>@Model.Url</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <form asp-action="Delete" method="post">
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-block" value="Удалить" />
+        </div>
+        <a asp-action="Index" asp-controller="Sites" class="btn btn-default btn-block" role="button">Назад</a>
+    </form>
+</div>
