@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SiteMonitoring.Models.TimeSpan>
+@{
+    ViewBag.Title = "Промежуток времени";
+}
+
+<ol class="breadcrumb">
+    <li><a asp-action="Index" asp-controller="Home">Главная</a></li>
+    <li class="active">@ViewBag.Title</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">@ViewBag.Title</div>
+        <table class="table">
+            <tr>
+                <th>Промежуток времени</th>
+                <th>Действия</th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.FirstOrDefault().Minutes)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Model.FirstOrDefault().Id"><span class="glyphicon glyphicon-pencil"></span></a> |
+                    <a asp-action="Details" asp-route-id="@Model.FirstOrDefault().Id"><span class="glyphicon glyphicon-info-sign"></span></a> |
+                    <a asp-action="Delete" asp-route-id="@Model.FirstOrDefault().Id"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

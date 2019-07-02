@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SiteMonitoring.Models;
 
 namespace SiteMonitoring.Controllers
 {
-    public class SitesController : Controller
+    public class TimeSpanController : Controller
     {
         private readonly SiteMonitoringContext _context;
 
-        public SitesController(SiteMonitoringContext context)
+        public TimeSpanController(SiteMonitoringContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sites.ToListAsync());
+            return View(await _context.TimeSpan.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -30,14 +29,14 @@ namespace SiteMonitoring.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Sites
+            var time = await _context.TimeSpan
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (site == null)
+            if (time == null)
             {
                 return NotFound();
             }
 
-            return View(site);
+            return View(time);
         }
 
         public IActionResult Create()
@@ -47,7 +46,7 @@ namespace SiteMonitoring.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Url")] Site site)
+        public async Task<IActionResult> Create([Bind("Id,Minutes")] Site site)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +64,7 @@ namespace SiteMonitoring.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Sites.SingleOrDefaultAsync(m => m.Id == id);
+            var site = await _context.TimeSpan.SingleOrDefaultAsync(m => m.Id == id);
             if (site == null)
             {
                 return NotFound();
@@ -75,7 +74,7 @@ namespace SiteMonitoring.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Url")] Site site)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Minutes")] Site site)
         {
             if (id != site.Id)
             {
@@ -112,7 +111,7 @@ namespace SiteMonitoring.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Sites
+            var site = await _context.TimeSpan
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (site == null)
             {
@@ -126,15 +125,15 @@ namespace SiteMonitoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var site = await _context.Sites.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Sites.Remove(site);
+            var site = await _context.TimeSpan.SingleOrDefaultAsync(m => m.Id == id);
+            _context.TimeSpan.Remove(site);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SiteExists(int id)
         {
-            return _context.Sites.Any(e => e.Id == id);
+            return _context.TimeSpan.Any(e => e.Id == id);
         }
     }
 }

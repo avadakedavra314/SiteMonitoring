@@ -26,9 +26,13 @@ namespace SiteMonitoring.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Timed Background Service is starting.");
-
-            _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(60));
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<SiteMonitoringContext>();
+                var time = context.TimeSpan.FirstOrDefault();
+                _timer = new Timer(DoWork, null, System.TimeSpan.Zero,
+                    System.TimeSpan.FromSeconds(60));
+            }
 
             return Task.CompletedTask;
         }

@@ -44,8 +44,17 @@ namespace SiteMonitoring.Services
                     {
                         _context.Sites.Add(new Site
                         {
-                            Url = _configuration.GetSection("DatabaseSeedData")["DefaultSite"],
+                            Url = _configuration.GetSection("DatabaseSeedData")["DefaultSite"],//DefaultTimeSpan
                             IsAvailable = BoolConvertExtension.ToBoolean(_configuration.GetSection("DatabaseSeedData")["DefaultSiteIsAvailable"]),
+                        });
+                        _context.SaveChanges();
+                    }
+                    Models.TimeSpan time = _context.TimeSpan.FirstOrDefault();
+                    if (time == null)
+                    {
+                        _context.TimeSpan.Add(new Models.TimeSpan
+                        {
+                            Minutes = Convert.ToInt32(_configuration.GetSection("DatabaseSeedData")["DefaultTimeSpan"]),
                         });
                         _context.SaveChanges();
                     }
